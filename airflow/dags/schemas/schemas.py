@@ -1,0 +1,15 @@
+flights_schema = [
+    {"name": "icao24", "type": "STRING"},
+    {"name": "departure_time_ts", "type": "INTEGER"},
+    {"name": "arrival_time_ts", "type": "INTEGER"},
+    {"name": "departure_time", "type": "TIMESTAMP"},
+    {"name": "arrival_time", "type": "TIMESTAMP"},
+    {"name": "departure_id", "type": "STRING"},
+    {"name": "arrival_id", "type": "STRING"},
+    {"name": "departure_name", "type": "STRING"},
+    {"name": "departure_country", "type": "STRING"},
+    {"name": "arrival_name", "type": "STRING"},
+    {"name": "arrival_country", "type": "STRING"},
+    {"name": "duration", "type": "INT64"},
+    {"name": "distance", "type": "FLOAT64"},
+]

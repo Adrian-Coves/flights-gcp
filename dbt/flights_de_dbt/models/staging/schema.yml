@@ -1,0 +1,89 @@
+version: 2
+
+models:
+  - name: staging_airports
+    description: "A table with info about airports of type %airport"
+    columns:
+      - name: id
+        description: "Unique identifier for the airport"
+      - name: ident
+        description: "Airport identifier"
+      - name: type
+        description: "Type of the airport"
+      - name: name
+        description: "Name of the airport"
+      - name: latitude_deg
+        description: "Latitude of the airport"
+      - name: longitude_deg
+        description: "Longitude of the airport"
+      - name: elevation_ft
+        description: "Elevation of the airport in feet"
+      - name: continent
+        description: "Continent where the airport is located"
+      - name: iso_country
+        description: "ISO code of the country where the airport is located"
+      - name: iso_region
+        description: "ISO region code"
+      - name: municipality
+        description: "Municipality where the airport is located"
+      - name: scheduled_service
+        description: "Indicates if the airport has scheduled service"
+      - name: gps_code
+        description: "GPS code of the airport"
+      - name: iata_code
+        description: "IATA code of the airport"
+      - name: local_code
+        description: "Local code of the airport"
+      - name: home_link
+        description: "Home link of the airport"
+      - name: wikipedia_link
+        description: "Wikipedia link of the airport"
+      - name: keywords
+        description: "Keywords associated with the airport"
+
+  - name: staging_departures
+    description: "This model includes data from the `departures_fact` table where there are no corresponding entries in the `flights_fact` table."
+    columns:
+      - name: icao24
+        description: Unique id for planes
+      - name: time_position
+        description: Departure timestamp in UTC
+      - name: id
+        description: Departure airport ID
+    tests:
+      - unique:
+          columns: [icao24, time_position]
+
+  - name: staging_arrivals
+    description: "This model includes data from the `arrivals_fact` table where there are no corresponding entries in the `flights_fact` table."
+    columns:
+      - name: icao24
+        description: Unique id for planes
+      - name: time_position
+        description: Arrival timestamp in UTC
+      - name: id
+        description: Arrival airport ID
+    tests:
+      - unique:
+          columns: [icao24, time_position]
+
+  - name: staging_raw_flights
+    description: "This model represents the basic data of a flight, the ID of the plane and its departure and arrival time"
+    columns:
+      - name: icao24
+        description: Unique id for planes
+        tests:
+          - unique
+      - name: departure_time_ts
+        description: Departure timestamp in UTC
+        tests:
+          - not_null
+      - name: arrival_time_ts
+        description: Arrival timestamp in UTC
+        tests:
+          - not_null
+    tests:
+      - unique:
+          columns: [icao24, departure_time_ts]
+      - unique:
+          columns: [icao24, arrival_time_ts]

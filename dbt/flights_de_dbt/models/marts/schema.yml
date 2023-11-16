@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: flights_fact
+    description: A final fact table containing the data of full flights
+    config:
+      materialized: incremental
+    columns:
+      - name: icao24
+        description: Unique id for planes
+        tests:
+          - unique
+      - name: departure_time_ts
+        description: Departure timestamp in UTC
+        tests:
+          - not_null
+      - name: arrival_time_ts
+        description: Arrival timestamp in UTC
+        tests:
+          - not_null
+      - name: departure_time
+        description: Departure time in UTC
+        tests:
+          - not_null
+      - name: arrival_time
+        description: Arrival time in UTC
+        tests:
+          - not_null
+      - name: departure_id
+        description: Departure airport ID
+        tests:
+          - not_null
+      - name: arrival_id
+        description: Arrival airport ID
+        tests:
+          - not_null
+      - name: departure_name
+        description: Departure airport name
+        tests:
+          - not_null
+      - name: departure_country
+        description: Departure airport country
+        tests:
+          - not_null
+      - name: arrival_name
+        description: Arrival airport name
+        tests:
+          - not_null
+      - name: arrival_country
+        description: Arrival airport country
+        tests:
+          - not_null
+      - name: duration
+        description: Flight duration
+        tests:
+          - not_null
+      - name: distance
+        description: Distance between airports in km
+        tests:
+          - not_null
+    tests:
+      - unique:
+          columns: [icao24, departure_time_ts]
